@@ -58,6 +58,9 @@ def prepare_solution(data, manager, routing, solution):
 
 	total_time = 0
 	for vehicle_id in range(data['num_vehicles']):
+		no_order = 0
+		value, previous_value = 0, 0
+		flag = False
 		index = routing.Start(vehicle_id)
 		key = str(data['vehicle_id'][vehicle_id])
 		res['routes'][key] = {'jobs': [], 'delivery_duration': 0}
@@ -65,11 +68,22 @@ def prepare_solution(data, manager, routing, solution):
 		while not routing.IsEnd(index):
 			node_index = manager.IndexToNode(index)
 			if node_index in data['indexes']:
-				res['routes'][key]['jobs'].append(data['indexes'][node_index])
-
+				res['routes'][key]['jobs'].append(data['indexes'][index])
+				flag = True
+				no_order = 0
+			else:
+				flag = False
 			previous_index = index
 			index = solution.Value(routing.NextVar(index))
-			route_time += routing.GetArcCostForVehicle(previous_index, index, vehicle_id)
+			value = routing.GetArcCostForVehicle(previous_index, index, vehicle_id)
+			route_time += value
+			if flag == False:
+				print(value)
+				no_order += previous_value
+			previous_value = value
+		if flag == False:
+			route_time -= no_order
+
 		total_time += route_time
 		res['routes'][key]['delivery_duration'] = route_time
 

@@ -1,19 +1,22 @@
-## HTTP Microservice with Google OR-tools
+# HTTP Microservice with Google OR-tools
 
-# In this project, I used some optional constrainst, that are;
+* In this project, I used some optional constrainst, that are;
 	* "capacity": Initial carboy capacity of the vehicle.
 	* "delivery": The amount of carboy that wil lbe delivered in this job.
 
-# For creating Rest API, I used Flask framework in Python3.6
-# For solving vehicle routing problem with constraints, I used Google OR-tools
+* For creating Rest API, I used Flask framework in Python3.8 .
+* For solving vehicle routing problem with constraints, I used Google OR-tools.
 
-# I used docker tool for microservice
+* I used docker tool for microservice.
 
 	* To build: "docker build --tag route-app ."
 	* To run: "docker run -d -p 5000:5000 route-app"
 
-# You can request with input file (.json)
+* You can request with input file (.json)
 	* host: localhost (127.0.0.1)
 	* port: 5000
+	* http://127.0.0.1:5000/getRoute
+	* curl -X POST -H "Content-Type: application/json" -d @./example/example_input.json http://localhost:5000/getRoute
 
-# Furkan Özev
+
+### Furkan Özev
