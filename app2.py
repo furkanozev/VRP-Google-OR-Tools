@@ -78,7 +78,6 @@ def prepare_solution(data, manager, routing, solution):
 			value = routing.GetArcCostForVehicle(previous_index, index, vehicle_id)
 			route_time += value
 			if flag == False:
-				print(value)
 				no_order += previous_value
 			previous_value = value
 		if flag == False:
